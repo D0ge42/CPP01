@@ -1,4 +1,4 @@
-NAME = zombie
+NAME = weapon
 
 CC = g++
 CFLAGS = -Wall -Wextra -Werror -std=c++98 -Iincludes -g
