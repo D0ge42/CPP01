@@ -27,7 +27,7 @@ void Search_And_Replace::search_and_replace(const char *in, std::string search, 
 	while(std::getline(instream,stash))
 	{
 		if (stash.compare(search) == 0x0)
-			outstream << replace;
+			outstream << replace << (char)0x0a ;
 		else
 			outstream << stash << (char)0x0a ;
 	}
