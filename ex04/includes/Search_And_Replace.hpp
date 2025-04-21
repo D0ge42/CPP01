@@ -22,8 +22,9 @@ class Search_And_Replace
 		void setOut(const char *out);
 		void setSearch(std::string type);
 		void setReplace(std::string type);
+		void print_file_content(const char *file);
 		void search_and_replace(const char *in, std::string search, std::string replace, const char  *out);
-};
 
+};
 #endif
 

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstdlib>
 #include <istream>
 #include <string>
 #include <fstream>
@@ -16,12 +17,12 @@ void Search_And_Replace::search_and_replace(const char *in, std::string search, 
 	outstream.open(output, std::fstream::out);
 	if (instream.is_open() == false)
 	{
-		std::cerr << "Error in opening the file!" << '\n';
+		std::cerr << "Error in opening the input file!" << '\n';
 		return;
 	}
 	if (outstream.is_open() == false)
 	{
-		std::cerr << "Couldnt open outout file";
+		std::cerr << "Error in opening output file";
 		return;
 	}
 	while(std::getline(instream,stash))
@@ -32,6 +33,22 @@ void Search_And_Replace::search_and_replace(const char *in, std::string search, 
 			outstream << stash << (char)0x0a ;
 	}
 }
+
+void Search_And_Replace::print_file_content(const char *file)
+{
+
+	std::ifstream stream;
+	std::string stash;
+	stream.open(file);
+	if (stream.is_open() == false)
+	{
+		std::cerr << "Couldn't open outfile after replacing" << '\n';
+		exit(EXIT_FAILURE);
+	}
+	while(std::getline(stream,stash))
+		std::cout << stash << '\n';
+}
+
 
 /* Constructors / Destructors */
 
