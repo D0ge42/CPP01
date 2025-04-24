@@ -18,7 +18,7 @@ int main()
 	std::string &stringREF = string;
 
 	std::cout << "string address: " << &string << '\n';
-	std::cout << "pointer address: " << &stringPTR << '\n';
+	std::cout << "pointer address: " << stringPTR << '\n';
 	std::cout << "ref address: " << &stringREF << '\n';
 
 	std::cout << "string value: " << string << '\n';

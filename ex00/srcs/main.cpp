@@ -14,9 +14,9 @@
 int main()
 {
 	Zombie *zombie;
-	zombieHorde(10,"Doge");
+	zombie = new Zombie("Pope Francisc");
 	if (zombie == NULL)
-		return 0;
+		return;
 	zombie->announce();
 	randomChump("Homeless zombie");
 	delete zombie;

@@ -11,7 +11,7 @@ Zombie::Zombie()
 
 /*Destructor of the class*/
 
-Zombie::Zombie(std::string name)
+Zombie::Zombie(std::string name) 
 {
 	this->_name = name;
 }

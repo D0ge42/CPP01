@@ -18,9 +18,9 @@ class Search_And_Replace
 		Search_And_Replace();
 		Search_And_Replace(std::string search, std::string replace);
 		~Search_And_Replace();
-		void print_file_content(const char *file);
-		void replace_in_line(std::string line, std::string to_search, std::string replace, const char *output);
-		void search_and_replace(const char *in, std::string search, std::string replace, const char  *out);
+		void print_file_content(std::string file);
+		std::string replace_in_line(std::string line, std::string to_search, std::string replace);
+		void search_and_replace(const char *in, std::string search, std::string replace);
 
 };
 #endif
