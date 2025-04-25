@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <cstring>
 #include <iostream>
 #include <cstdlib>
@@ -31,10 +32,11 @@ void Search_And_Replace::search_and_replace(const char *in, std::string search, 
 	}
 	std::string outfile = in;
 	outfile += ".replace";
-	ofstream.open(outfile.c_str(), std::ofstream::out);
-	if (instream.is_open() == false)
+	ofstream.open(outfile.c_str(), std::ofstream::out | std::_S_trunc );
+	if (ofstream.is_open() == false)
 	{
-		std::cerr << "Error in opening the input file!" << '\n';
+		std::cerr << "Error in opening the output file!" << '\n';
+		instream.close();
 		return;
 	}
 	while(std::getline(instream,stash))
@@ -42,26 +44,25 @@ void Search_And_Replace::search_and_replace(const char *in, std::string search, 
 	ofstream << res;
 }
 
+/* To find the substring inside line we use the find method.
+ * Find method returns the index at which the substring was found.
+ * If no substring is found it return npos(18446744073709551615UL)
+ * It will erase a certain amount of characters equals to search.lenght()
+ * Insert a string at the same index.
+ * And then it will keep searching again for eventual others occurences of that substring.*/
+
 std::string Search_And_Replace::replace_in_line(std::string line,std::string to_search, std::string replace )
 {
-	std::string res;
-	int line_length = line.length();
 	if (to_search.length() == 0)
+		return line+='\n';
+	size_t idx = line.find(to_search,0x0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000);
+	while (idx != 18446744073709551615UL)
 	{
-		return line;
+		line.erase(idx,to_search.length());
+		line.insert(idx,replace);
+		idx = line.find(to_search,idx + sizeof(replace));
 	}
-	for (int i = 0; i < line_length; i++)
-	{
-		if (line.compare(i,to_search.length(),to_search) == 0x0)
-		{
-			res+=replace;
-			i+=to_search.length() - 1;
-		}
-		else
-			res += line[i];
-
-	}
-	return res+='\n';
+	return line+='\n';
 }
 
 void Search_And_Replace::print_file_content(std::string file)
@@ -70,10 +71,10 @@ void Search_And_Replace::print_file_content(std::string file)
 	std::ifstream stream;
 	std::string stash;
 	file += ".replace";
-	stream.open(file.c_str());
+	stream.open(file.c_str(), std::ifstream::in);
 	if (stream.is_open() == false)
 	{
-		std::cerr << "Couldn't open outfile after replacing" << '\n';
+		std::cerr << "Couldn't open file to read" << '\n';
 		exit(EXIT_FAILURE);
 	}
 	while(std::getline(stream,stash))
@@ -81,9 +82,6 @@ void Search_And_Replace::print_file_content(std::string file)
 }
 
 /* Constructors / Destructors */
-
-Search_And_Replace::Search_And_Replace(std::string search, std::string replace):_search(search),_replace(replace)
-{}
 
 Search_And_Replace::~Search_And_Replace()
 {}
